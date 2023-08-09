@@ -18,7 +18,7 @@ function AddCatForm() {
     
     return (
     <div className="LoginForm componentBox">
-        <h3>Add Cat Form</h3>
+        <h2>Add Cat Form</h2>
         <div className="formRow">
             <label>Name:    
                 <input type="text" value={name} name="Name"

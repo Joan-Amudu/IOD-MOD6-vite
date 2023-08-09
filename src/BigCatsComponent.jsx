@@ -16,49 +16,70 @@ const cats = [
     { id: 5, name: 'Lion', latinName: 'Panthera leo', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/480px-Lion_waiting_in_Namibia.jpg' },
     { id: 6, name: 'Snow leopard', latinName: 'Panthera uncia', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Irbis4.JPG/480px-Irbis4.JPG' },
     { id: 7, name: 'Tiger', latinName: 'Panthera tigris', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Walking_tiger_female.jpg/480px-Walking_tiger_female.jpg' },
-    { id: 8, name: 'Tigeres', latinName: 'Panthera tigrises', image: './assets/images/tiger.jpg' },
+    
 ];
 
-function SingleCatComponent({name, latinName, image}) {
+//I had issues with rendering images, so this solution is from lab answers. 
+function SingleCatComponent({name, latinName, image}) {  
+   
+
     return (
-        <li>
+        <li>       
+              
             <h3>{name}, <em>({latinName})</em></h3>            
             <img src={image} width="250" height="200" alt={name} />            
-        </li>
+                       
+        </li> 
+        
     )
+    
 }
 
 function BigCats() {    
     
     const [currentCats, setCurrentCats] = useState(cats);
-    const catItems = cats.map(cat => (
-        <SingleCatComponent name={cat.name} latinName={cat.latinName} key={cat.id} image={cat.image}/>
+    const catItems = currentCats.map(cat => (
+        <SingleCatComponent name={cat.name} latinName={cat.latinName} key={cat.id} image={cat.image} id={cat.id}/>
     ))
+
 
     const handleReverseCats = () => {
         let newCats = [...currentCats];
         newCats.reverse();
         setCurrentCats(newCats);
-        newCats.sort();
+       
+    }
+    const handleSortCats = () => {
+        let newCats = [...currentCats];
+        newCats.sort((cat1, cat2) => cat1.name < cat2.name ? -1 : 1 );
+        setCurrentCats(newCats);
     }
    
     const filterCats = () => {
         let filteredCats = [...currentCats];
         filteredCats.filter(cats => cats.latinName = 'Panthera' );
 
-    }
-    
+    } 
+    const ResetCats = () => {
+        setCurrentCats(cats);
+    }     
     
     return (
         <div className="bigcats">
-            <ul>{ catItems }</ul>
-            <button onClick={handleReverseCats}>Reverse List</button>
-            <button onClick={filterCats}>Filter Cats </button>
+            <ul>{ catItems }</ul>         
+            
+            <div>
+                <button onClick={handleReverseCats}>Reverse List</button>
+                <button onClick={handleSortCats}>Sort List</button>
+            </div>
+            <div>
+                <button onClick={filterCats}>Filter Cats </button>
+                <button onClick={ResetCats}>Filter Cats </button>
+            </div>
         </div>
+       
          
-    )
-    
+    )   
    
 }
 export default BigCats
-

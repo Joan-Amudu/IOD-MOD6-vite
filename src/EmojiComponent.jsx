@@ -12,6 +12,7 @@ function Emoji() {
 
     return (
         <div className="MoodChanger componentBox">
+          <h2>Emoji Component</h2>
             Current Mood: {mood}
             {/* Change the mood state by calling setMood when a button is clicked */}
             <button
