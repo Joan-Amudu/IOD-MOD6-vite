@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 /*
 Create a BigCats component, in its own file, which uses
 the cats array (below) to display a styled list of cats.
@@ -21,28 +22,20 @@ const cats = [
 
 //I had issues with rendering images, so this solution is from lab answers. 
 function SingleCatComponent({name, latinName, image}) {  
-   
-
     return (
-        <li>       
-              
+        <li>                
             <h3>{name}, <em>({latinName})</em></h3>            
-            <img src={image} width="250" height="200" alt={name} />            
-                       
-        </li> 
-        
+            <img src={image} width="250" height="200" alt={name} />                     
+        </li>       
     )
     
 }
 
 function BigCats() {    
-    
     const [currentCats, setCurrentCats] = useState(cats);
     const catItems = currentCats.map(cat => (
         <SingleCatComponent name={cat.name} latinName={cat.latinName} key={cat.id} image={cat.image} id={cat.id}/>
     ))
-
-
     const handleReverseCats = () => {
         let newCats = [...currentCats];
         newCats.reverse();
@@ -56,29 +49,27 @@ function BigCats() {
     }
    
     const filterCats = () => {
-        let filteredCats = [...currentCats];
-        filteredCats.filter(cats => cats.latinName = 'Panthera' );
+        let newCats = currentCats.filter(cat => cat.latinName.startsWith('Panthera'));
+        setCurrentCats(newCats);
 
     } 
     const ResetCats = () => {
         setCurrentCats(cats);
-    }     
-    
+    } 
+        
     return (
         <div className="bigcats">
             <ul>{ catItems }</ul>         
-            
             <div>
                 <button onClick={handleReverseCats}>Reverse List</button>
                 <button onClick={handleSortCats}>Sort List</button>
             </div>
             <div>
                 <button onClick={filterCats}>Filter Cats </button>
-                <button onClick={ResetCats}>Filter Cats </button>
-            </div>
-        </div>
-       
-         
+                <button onClick={ResetCats}>Reset Cats </button>
+            </div>     
+                       
+        </div>        
     )   
    
 }
